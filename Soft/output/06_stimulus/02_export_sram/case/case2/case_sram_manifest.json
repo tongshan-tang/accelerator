@@ -1,0 +1,98 @@
+{
+  "case_name": "case2",
+  "source_case_manifest": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/01_case_dispatch/case/case2/case_manifest.json",
+  "execution_model": "load_one_pair_then_start_wait_done_check_then_overwrite",
+  "pair_count": 10,
+  "pairs": [
+    {
+      "pair": "pair01",
+      "operation": "*",
+      "operation_code": 0,
+      "expression": "A(020,024)*B(024,018)",
+      "input_config": "pair01/input_config.json",
+      "c_rows": 20,
+      "c_cols": 18
+    },
+    {
+      "pair": "pair02",
+      "operation": "+",
+      "operation_code": 1,
+      "expression": "A(018,018)+B(018,018)",
+      "input_config": "pair02/input_config.json",
+      "c_rows": 18,
+      "c_cols": 18
+    },
+    {
+      "pair": "pair03",
+      "operation": "-",
+      "operation_code": 2,
+      "expression": "A(024,020)-B(024,020)",
+      "input_config": "pair03/input_config.json",
+      "c_rows": 24,
+      "c_cols": 20
+    },
+    {
+      "pair": "pair04",
+      "operation": "*",
+      "operation_code": 0,
+      "expression": "A(016,048)*B(048,024)",
+      "input_config": "pair04/input_config.json",
+      "c_rows": 16,
+      "c_cols": 24
+    },
+    {
+      "pair": "pair05",
+      "operation": "+",
+      "operation_code": 1,
+      "expression": "A(040,032)+B(040,032)",
+      "input_config": "pair05/input_config.json",
+      "c_rows": 40,
+      "c_cols": 32
+    },
+    {
+      "pair": "pair06",
+      "operation": "-",
+      "operation_code": 2,
+      "expression": "A(040,032)-B(040,032)",
+      "input_config": "pair06/input_config.json",
+      "c_rows": 40,
+      "c_cols": 32
+    },
+    {
+      "pair": "pair07",
+      "operation": "*",
+      "operation_code": 0,
+      "expression": "A(032,032)*B(032,020)",
+      "input_config": "pair07/input_config.json",
+      "c_rows": 32,
+      "c_cols": 20
+    },
+    {
+      "pair": "pair08",
+      "operation": "+",
+      "operation_code": 1,
+      "expression": "A(020,040)+B(020,040)",
+      "input_config": "pair08/input_config.json",
+      "c_rows": 20,
+      "c_cols": 40
+    },
+    {
+      "pair": "pair09",
+      "operation": "-",
+      "operation_code": 2,
+      "expression": "A(020,040)-B(020,040)",
+      "input_config": "pair09/input_config.json",
+      "c_rows": 20,
+      "c_cols": 40
+    },
+    {
+      "pair": "pair10",
+      "operation": "*",
+      "operation_code": 0,
+      "expression": "A(048,024)*B(024,032)",
+      "input_config": "pair10/input_config.json",
+      "c_rows": 48,
+      "c_cols": 32
+    }
+  ]
+}

@@ -1,0 +1,638 @@
+{
+  "case_name": "case3",
+  "source_sram_manifest": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/case_sram_manifest.json",
+  "execution_model": "load_one_pair_then_start_wait_done_check_then_overwrite",
+  "run_count": 10,
+  "runs": [
+    {
+      "run_id": 0,
+      "pair": "pair01",
+      "operation": "*",
+      "operation_code": 0,
+      "expression": "A(064,032)*B(032,016)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair01/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair01/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair01/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair01/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair01/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair01/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair01/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair01/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair01/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair01/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair01/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair01/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair01/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair01/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair01/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair01/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 64,
+        "cols": 32,
+        "storage_format": "csr",
+        "ptr_len": 65,
+        "index_len": 305,
+        "data_len": 305
+      },
+      "b": {
+        "rows": 32,
+        "cols": 16,
+        "storage_format": "csc",
+        "ptr_len": 17,
+        "index_len": 60,
+        "data_len": 60
+      },
+      "c": {
+        "rows": 64,
+        "cols": 16,
+        "output_len": 1024,
+        "storage_format": "dense_row_major_fp16"
+      }
+    },
+    {
+      "run_id": 1,
+      "pair": "pair02",
+      "operation": "+",
+      "operation_code": 1,
+      "expression": "A(032,064)+B(032,064)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair02/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair02/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair02/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair02/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair02/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair02/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair02/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair02/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair02/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair02/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair02/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair02/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair02/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair02/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair02/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair02/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 32,
+        "cols": 64,
+        "storage_format": "csr",
+        "ptr_len": 33,
+        "index_len": 299,
+        "data_len": 299
+      },
+      "b": {
+        "rows": 32,
+        "cols": 64,
+        "storage_format": "csr",
+        "ptr_len": 33,
+        "index_len": 232,
+        "data_len": 232
+      },
+      "c": {
+        "rows": 32,
+        "cols": 64,
+        "output_len": 2048,
+        "storage_format": "dense_row_major_fp16"
+      }
+    },
+    {
+      "run_id": 2,
+      "pair": "pair03",
+      "operation": "-",
+      "operation_code": 2,
+      "expression": "A(032,064)-B(032,064)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair03/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair03/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair03/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair03/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair03/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair03/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair03/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair03/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair03/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair03/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair03/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair03/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair03/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair03/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair03/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair03/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 32,
+        "cols": 64,
+        "storage_format": "csr",
+        "ptr_len": 33,
+        "index_len": 350,
+        "data_len": 350
+      },
+      "b": {
+        "rows": 32,
+        "cols": 64,
+        "storage_format": "csr",
+        "ptr_len": 33,
+        "index_len": 352,
+        "data_len": 352
+      },
+      "c": {
+        "rows": 32,
+        "cols": 64,
+        "output_len": 2048,
+        "storage_format": "dense_row_major_fp16"
+      }
+    },
+    {
+      "run_id": 3,
+      "pair": "pair04",
+      "operation": "*",
+      "operation_code": 0,
+      "expression": "A(024,040)*B(040,024)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair04/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair04/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair04/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair04/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair04/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair04/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair04/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair04/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair04/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair04/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair04/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair04/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair04/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair04/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair04/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair04/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 24,
+        "cols": 40,
+        "storage_format": "csr",
+        "ptr_len": 25,
+        "index_len": 152,
+        "data_len": 152
+      },
+      "b": {
+        "rows": 40,
+        "cols": 24,
+        "storage_format": "csc",
+        "ptr_len": 25,
+        "index_len": 140,
+        "data_len": 140
+      },
+      "c": {
+        "rows": 24,
+        "cols": 24,
+        "output_len": 576,
+        "storage_format": "dense_row_major_fp16"
+      }
+    },
+    {
+      "run_id": 4,
+      "pair": "pair05",
+      "operation": "+",
+      "operation_code": 1,
+      "expression": "A(048,048)+B(048,048)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair05/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair05/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair05/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair05/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair05/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair05/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair05/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair05/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair05/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair05/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair05/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair05/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair05/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair05/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair05/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair05/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 48,
+        "cols": 48,
+        "storage_format": "csr",
+        "ptr_len": 49,
+        "index_len": 318,
+        "data_len": 318
+      },
+      "b": {
+        "rows": 48,
+        "cols": 48,
+        "storage_format": "csr",
+        "ptr_len": 49,
+        "index_len": 344,
+        "data_len": 344
+      },
+      "c": {
+        "rows": 48,
+        "cols": 48,
+        "output_len": 2304,
+        "storage_format": "dense_row_major_fp16"
+      }
+    },
+    {
+      "run_id": 5,
+      "pair": "pair06",
+      "operation": "-",
+      "operation_code": 2,
+      "expression": "A(048,048)-B(048,048)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair06/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair06/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair06/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair06/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair06/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair06/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair06/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair06/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair06/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair06/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair06/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair06/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair06/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair06/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair06/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair06/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 48,
+        "cols": 48,
+        "storage_format": "csr",
+        "ptr_len": 49,
+        "index_len": 357,
+        "data_len": 357
+      },
+      "b": {
+        "rows": 48,
+        "cols": 48,
+        "storage_format": "csr",
+        "ptr_len": 49,
+        "index_len": 312,
+        "data_len": 312
+      },
+      "c": {
+        "rows": 48,
+        "cols": 48,
+        "output_len": 2304,
+        "storage_format": "dense_row_major_fp16"
+      }
+    },
+    {
+      "run_id": 6,
+      "pair": "pair07",
+      "operation": "*",
+      "operation_code": 0,
+      "expression": "A(028,028)*B(028,036)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair07/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair07/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair07/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair07/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair07/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair07/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair07/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair07/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair07/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair07/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair07/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair07/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair07/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair07/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair07/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair07/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 28,
+        "cols": 28,
+        "storage_format": "csr",
+        "ptr_len": 29,
+        "index_len": 112,
+        "data_len": 112
+      },
+      "b": {
+        "rows": 28,
+        "cols": 36,
+        "storage_format": "csc",
+        "ptr_len": 37,
+        "index_len": 151,
+        "data_len": 151
+      },
+      "c": {
+        "rows": 28,
+        "cols": 36,
+        "output_len": 1008,
+        "storage_format": "dense_row_major_fp16"
+      }
+    },
+    {
+      "run_id": 7,
+      "pair": "pair08",
+      "operation": "+",
+      "operation_code": 1,
+      "expression": "A(036,024)+B(036,024)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair08/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair08/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair08/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair08/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair08/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair08/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair08/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair08/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair08/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair08/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair08/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair08/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair08/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair08/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair08/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair08/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 36,
+        "cols": 24,
+        "storage_format": "csr",
+        "ptr_len": 37,
+        "index_len": 126,
+        "data_len": 126
+      },
+      "b": {
+        "rows": 36,
+        "cols": 24,
+        "storage_format": "csr",
+        "ptr_len": 37,
+        "index_len": 122,
+        "data_len": 122
+      },
+      "c": {
+        "rows": 36,
+        "cols": 24,
+        "output_len": 864,
+        "storage_format": "dense_row_major_fp16"
+      }
+    },
+    {
+      "run_id": 8,
+      "pair": "pair09",
+      "operation": "-",
+      "operation_code": 2,
+      "expression": "A(036,024)-B(036,024)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair09/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair09/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair09/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair09/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair09/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair09/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair09/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair09/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair09/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair09/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair09/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair09/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair09/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair09/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair09/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair09/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 36,
+        "cols": 24,
+        "storage_format": "csr",
+        "ptr_len": 37,
+        "index_len": 117,
+        "data_len": 117
+      },
+      "b": {
+        "rows": 36,
+        "cols": 24,
+        "storage_format": "csr",
+        "ptr_len": 37,
+        "index_len": 135,
+        "data_len": 135
+      },
+      "c": {
+        "rows": 36,
+        "cols": 24,
+        "output_len": 864,
+        "storage_format": "dense_row_major_fp16"
+      }
+    },
+    {
+      "run_id": 9,
+      "pair": "pair10",
+      "operation": "*",
+      "operation_code": 0,
+      "expression": "A(040,020)*B(020,040)",
+      "input_config": {
+        "path": "../../../02_export_sram/case/case3/pair10/input_config.json",
+        "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair10/input_config.json"
+      },
+      "mem": {
+        "A_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair10/A_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair10/A_ptr.mem"
+        },
+        "A_index": {
+          "path": "../../../02_export_sram/case/case3/pair10/A_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair10/A_index.mem"
+        },
+        "A_data": {
+          "path": "../../../02_export_sram/case/case3/pair10/A_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair10/A_data.mem"
+        },
+        "B_ptr": {
+          "path": "../../../02_export_sram/case/case3/pair10/B_ptr.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair10/B_ptr.mem"
+        },
+        "B_index": {
+          "path": "../../../02_export_sram/case/case3/pair10/B_index.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair10/B_index.mem"
+        },
+        "B_data": {
+          "path": "../../../02_export_sram/case/case3/pair10/B_data.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair10/B_data.mem"
+        },
+        "C_golden_fp16": {
+          "path": "../../../02_export_sram/case/case3/pair10/C_golden_fp16.mem",
+          "abs_path": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/02_export_sram/case/case3/pair10/C_golden_fp16.mem"
+        }
+      },
+      "a": {
+        "rows": 40,
+        "cols": 20,
+        "storage_format": "csr",
+        "ptr_len": 41,
+        "index_len": 114,
+        "data_len": 114
+      },
+      "b": {
+        "rows": 20,
+        "cols": 40,
+        "storage_format": "csc",
+        "ptr_len": 41,
+        "index_len": 120,
+        "data_len": 120
+      },
+      "c": {
+        "rows": 40,
+        "cols": 40,
+        "output_len": 1600,
+        "storage_format": "dense_row_major_fp16"
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+05_addsub_model dense golden
+
+mode: fp16_addsub
+operation: +
+expression: A(036,024)+B(036,024)
+A: case3_pair08_A
+B: case3_pair08_B
+C shape: 36 x 24
+nonzero_c_count: 224
+zero_c_count: 640
+source_pair_json: /home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair08.json

@@ -1,0 +1,25 @@
+case2 pair 08
+
+operation: +
+expression: A(020,040)+B(020,040)
+seed_base: 1002
+max_line_density: 0.3
+
+[A]
+  storage_format   : csr
+  rows x cols      : 20 x 40
+  nnz              : 95
+  max_line_density : 0.275000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 21 / 95 / 95
+
+[B]
+  storage_format   : csr
+  rows x cols      : 20 x 40
+  nnz              : 120
+  max_line_density : 0.300000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 21 / 120 / 120
+

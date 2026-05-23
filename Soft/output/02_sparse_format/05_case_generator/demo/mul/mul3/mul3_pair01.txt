@@ -1,0 +1,25 @@
+mul3 pair 01
+
+operation: *
+expression: A(048,024)*B(024,036)
+seed_base: 2003
+max_line_density: 0.3
+
+[A]
+  storage_format   : csr
+  rows x cols      : 48 x 24
+  nnz              : 176
+  max_line_density : 0.291667
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 49 / 176 / 176
+
+[B]
+  storage_format   : csc
+  rows x cols      : 24 x 36
+  nnz              : 144
+  max_line_density : 0.291667
+  ptr_name         : col_ptr
+  index_name       : row_idx
+  ptr/index/data   : 37 / 144 / 144
+

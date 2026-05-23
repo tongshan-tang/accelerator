@@ -1,0 +1,25 @@
+case1 pair 07
+
+operation: *
+expression: A(016,016)*B(016,032)
+seed_base: 1001
+max_line_density: 0.3
+
+[A]
+  storage_format   : csr
+  rows x cols      : 16 x 16
+  nnz              : 43
+  max_line_density : 0.250000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 17 / 43 / 43
+
+[B]
+  storage_format   : csc
+  rows x cols      : 16 x 32
+  nnz              : 70
+  max_line_density : 0.250000
+  ptr_name         : col_ptr
+  index_name       : row_idx
+  ptr/index/data   : 33 / 70 / 70
+

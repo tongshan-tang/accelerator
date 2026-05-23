@@ -1,0 +1,40 @@
+{
+  "pair": "pair01",
+  "operation": "*",
+  "operation_code": 0,
+  "expression": "A(064,032)*B(032,016)",
+  "seed_base": 1003,
+  "a": {
+    "rows": 64,
+    "cols": 32,
+    "storage_format": "csr",
+    "ptr_len": 65,
+    "index_len": 305,
+    "data_len": 305
+  },
+  "b": {
+    "rows": 32,
+    "cols": 16,
+    "storage_format": "csc",
+    "ptr_len": 17,
+    "index_len": 60,
+    "data_len": 60
+  },
+  "c": {
+    "rows": 64,
+    "cols": 16,
+    "output_len": 1024,
+    "storage_format": "dense_row_major_fp16"
+  },
+  "mem_files": {
+    "A_ptr": "A_ptr.mem",
+    "A_index": "A_index.mem",
+    "A_data": "A_data.mem",
+    "B_ptr": "B_ptr.mem",
+    "B_index": "B_index.mem",
+    "B_data": "B_data.mem",
+    "C_golden_fp16": "C_golden_fp16.mem"
+  },
+  "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair01.json",
+  "source_dense_golden_json": "/home/cz/cz_stuff/accelerator/Soft/output/06_stimulus/01_case_dispatch/case/case3/pair01/case3_pair01_dense_golden.json"
+}

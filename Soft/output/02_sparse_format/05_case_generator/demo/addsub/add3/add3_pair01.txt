@@ -1,0 +1,25 @@
+add3 pair 01
+
+operation: +
+expression: A(040,020)+B(040,020)
+seed_base: 3003
+max_line_density: 0.3
+
+[A]
+  storage_format   : csr
+  rows x cols      : 40 x 20
+  nnz              : 128
+  max_line_density : 0.300000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 41 / 128 / 128
+
+[B]
+  storage_format   : csr
+  rows x cols      : 40 x 20
+  nnz              : 127
+  max_line_density : 0.300000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 41 / 127 / 127
+

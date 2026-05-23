@@ -1,0 +1,25 @@
+case1 pair 03
+
+operation: -
+expression: A(016,016)-B(016,016)
+seed_base: 1001
+max_line_density: 0.3
+
+[A]
+  storage_format   : csr
+  rows x cols      : 16 x 16
+  nnz              : 40
+  max_line_density : 0.250000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 17 / 40 / 40
+
+[B]
+  storage_format   : csr
+  rows x cols      : 16 x 16
+  nnz              : 26
+  max_line_density : 0.250000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 17 / 26 / 26
+

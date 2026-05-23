@@ -1,0 +1,147 @@
+{
+  "case_name": "case3",
+  "source_case_dir": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3",
+  "pair_count": 10,
+  "pairs": [
+    {
+      "pair": "pair01",
+      "operation": "*",
+      "output_kind": "matmul",
+      "expression": "A(064,032)*B(032,016)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair01.json",
+      "golden_files": [
+        "pair01/case3_pair01_dense_golden.json",
+        "pair01/case3_pair01_task_trace.json"
+      ],
+      "c_rows": 64,
+      "c_cols": 16,
+      "mode": "fp32_acc"
+    },
+    {
+      "pair": "pair02",
+      "operation": "+",
+      "output_kind": "addsub",
+      "expression": "A(032,064)+B(032,064)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair02.json",
+      "golden_files": [
+        "pair02/case3_pair02_dense_golden.json",
+        "pair02/case3_pair02_dense_golden.txt"
+      ],
+      "c_rows": 32,
+      "c_cols": 64,
+      "mode": "fp16_addsub"
+    },
+    {
+      "pair": "pair03",
+      "operation": "-",
+      "output_kind": "addsub",
+      "expression": "A(032,064)-B(032,064)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair03.json",
+      "golden_files": [
+        "pair03/case3_pair03_dense_golden.json",
+        "pair03/case3_pair03_dense_golden.txt"
+      ],
+      "c_rows": 32,
+      "c_cols": 64,
+      "mode": "fp16_addsub"
+    },
+    {
+      "pair": "pair04",
+      "operation": "*",
+      "output_kind": "matmul",
+      "expression": "A(024,040)*B(040,024)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair04.json",
+      "golden_files": [
+        "pair04/case3_pair04_dense_golden.json",
+        "pair04/case3_pair04_task_trace.json"
+      ],
+      "c_rows": 24,
+      "c_cols": 24,
+      "mode": "fp32_acc"
+    },
+    {
+      "pair": "pair05",
+      "operation": "+",
+      "output_kind": "addsub",
+      "expression": "A(048,048)+B(048,048)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair05.json",
+      "golden_files": [
+        "pair05/case3_pair05_dense_golden.json",
+        "pair05/case3_pair05_dense_golden.txt"
+      ],
+      "c_rows": 48,
+      "c_cols": 48,
+      "mode": "fp16_addsub"
+    },
+    {
+      "pair": "pair06",
+      "operation": "-",
+      "output_kind": "addsub",
+      "expression": "A(048,048)-B(048,048)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair06.json",
+      "golden_files": [
+        "pair06/case3_pair06_dense_golden.json",
+        "pair06/case3_pair06_dense_golden.txt"
+      ],
+      "c_rows": 48,
+      "c_cols": 48,
+      "mode": "fp16_addsub"
+    },
+    {
+      "pair": "pair07",
+      "operation": "*",
+      "output_kind": "matmul",
+      "expression": "A(028,028)*B(028,036)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair07.json",
+      "golden_files": [
+        "pair07/case3_pair07_dense_golden.json",
+        "pair07/case3_pair07_task_trace.json"
+      ],
+      "c_rows": 28,
+      "c_cols": 36,
+      "mode": "fp32_acc"
+    },
+    {
+      "pair": "pair08",
+      "operation": "+",
+      "output_kind": "addsub",
+      "expression": "A(036,024)+B(036,024)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair08.json",
+      "golden_files": [
+        "pair08/case3_pair08_dense_golden.json",
+        "pair08/case3_pair08_dense_golden.txt"
+      ],
+      "c_rows": 36,
+      "c_cols": 24,
+      "mode": "fp16_addsub"
+    },
+    {
+      "pair": "pair09",
+      "operation": "-",
+      "output_kind": "addsub",
+      "expression": "A(036,024)-B(036,024)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair09.json",
+      "golden_files": [
+        "pair09/case3_pair09_dense_golden.json",
+        "pair09/case3_pair09_dense_golden.txt"
+      ],
+      "c_rows": 36,
+      "c_cols": 24,
+      "mode": "fp16_addsub"
+    },
+    {
+      "pair": "pair10",
+      "operation": "*",
+      "output_kind": "matmul",
+      "expression": "A(040,020)*B(020,040)",
+      "source_pair_json": "/home/cz/cz_stuff/accelerator/Soft/output/02_sparse_format/05_case_generator/case/case3/case3_pair10.json",
+      "golden_files": [
+        "pair10/case3_pair10_dense_golden.json",
+        "pair10/case3_pair10_task_trace.json"
+      ],
+      "c_rows": 40,
+      "c_cols": 40,
+      "mode": "fp32_acc"
+    }
+  ]
+}

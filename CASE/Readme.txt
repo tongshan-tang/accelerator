@@ -1,4 +1,4 @@
-Note:
+Note:d
 1.下面提供8个testcase,供参赛团队参考,每个testcase内部有10个矩阵运算demo
 2.定义矩阵AB的尺寸描述如下：A(a,b) means matrix A size is a row and b column
 3.TC1_RAW文件夹中有三个矩阵的稀疏描述，下面以A(251,256)*B(256,121)矩阵为例对TC1_RAW文件进行描述

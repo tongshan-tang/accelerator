@@ -1,0 +1,25 @@
+add1 pair 01
+
+operation: +
+expression: A(016,016)+B(016,016)
+seed_base: 3001
+max_line_density: 0.3
+
+[A]
+  storage_format   : csr
+  rows x cols      : 16 x 16
+  nnz              : 33
+  max_line_density : 0.250000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 17 / 33 / 33
+
+[B]
+  storage_format   : csr
+  rows x cols      : 16 x 16
+  nnz              : 41
+  max_line_density : 0.250000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 17 / 41 / 41
+

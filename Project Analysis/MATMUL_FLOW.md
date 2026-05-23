@@ -1,8 +1,8 @@
-# MATMUL_FLOW：方案 B 乘法流程与存储设定
+# MATMUL_FLOW：乘法流程与存储设定
 
 ## 1. 目标与范围
 
-本文档描述当前选定的方案 B 在矩阵乘法 `C = A * B` 中的基本数据流、CSR/CSC 地址生成、FIFO 任务格式、寄存器边界和 SRAM 位宽设定。
+本文档描述当前既定架构在矩阵乘法 `C = A * B` 中的基本数据流、CSR/CSC 地址生成、FIFO 任务格式、寄存器边界和 SRAM 位宽设定。
 
 核心原则：
 
@@ -347,17 +347,41 @@ A_Row_Index_Buffer[0 : a_len-1]
 B_Col_Index_Buffer[0 : b_len-1]
 ```
 
-也可以边读边送入 merge matcher。为了减少外层 SRAM 反复读取，当前推荐先搬到本地 buffer，再执行双指针 merge。
+也可以边读边送入 merge matcher。当前主线推荐改为小窗口流式读取：不等待当前 A 行和 B 列的全部 index 都取完，而是在 A/B 两侧各取到第一批 index 后立即进入双指针比较。
 
-若 `LANE_NUM=16`，A 当前行长度为 34：
+暂定参数：
 
 ```text
-第 1 次读取 offset 0  ~ 15
-第 2 次读取 offset 16 ~ 31
-第 3 次读取 offset 32 ~ 33
+INDEX_READ_LANE = 4
+A_Index_Window/FIFO 深度 = 16 entry
+B_Index_Window/FIFO 深度 = 16 entry
+Index 项位宽 = 16-bit 对齐，其中有效 IDX 字段按矩阵内维确定
 ```
 
-第三次只有 2 个有效 lane，其余 lane 由控制逻辑屏蔽。这里不需要 `eol`，因为 `a_len=34` 已经来自 `A_RowPtr[row_id+1] - A_RowPtr[row_id]`。
+读取策略：
+
+```text
+每次从 A_Index_SRAM 读取最多 4 个连续 index，写入 A_Index_Window/FIFO
+每次从 B_Index_SRAM 读取最多 4 个连续 index，写入 B_Index_Window/FIFO
+matcher 从两个 window 的 head 开始比较
+某一侧 window 空出空间或接近为空时，继续按 4-entry burst 补充
+```
+
+若 A 或 B 剩余有效 index 不足 4 个，则只置高对应 valid lane，其余 lane 屏蔽。这里不需要 `eol`，因为 `a_len/b_len` 已经来自相邻 Ptr 相减。
+
+对于 4-entry A window 和 4-entry B window，一轮局部 merge 的最坏比较次数为：
+
+```text
+4 + 4 - 1 = 7
+```
+
+失败比较时丢弃较小 index；命中时同时丢弃 A/B 两侧 index，并生成一个命中任务。因此，若一次比较时间与一次 4-entry index 读取时间近似相同，理论上等待整批 4v4 window 消耗的最长时间为 7 个比较周期。按连续预取的保守估算，7 个周期内最多新进入：
+
+```text
+7 * 4 = 28 entry
+```
+
+若必须按 2 的幂配置缓冲，保守深度可取 32 entry。但当前主线采用按需 refill，而不是无条件连续灌入，因此先暂定每侧 16-entry index window/FIFO：当前 4 个用于比较，后续若干 entry 用于隐藏 SRAM 读延迟和吸收局部反压。若后续仿真发现 matcher 经常断粮或 SRAM 读端固定连续 burst，再提升到 32 entry。
 
 ### 5.4 推荐遍历方式：基于有序 index 的双指针 merge
 
@@ -687,8 +711,8 @@ c_addr = C_BASE + row_id * B_COLS + col_id
 | 阶段 | 主要寄存器 | 说明 |
 |---|---|---|
 | Ptr fetch | `row_id_r`, `col_id_r`, `a_base_r`, `a_end_r`, `b_base_r`, `b_end_r` | 读取相邻 Ptr 并计算有效长度 |
-| Index buffer | `A_Row_Index_Buffer`, `B_Col_Index_Buffer`, `a_len_r`, `b_len_r` | 保存当前 A 行与 B 列的有效 index |
-| Merge match | `a_ptr_r`, `b_ptr_r`, `a_idx_r`, `b_idx_r` | 双指针遍历有序 index，发现相同 index |
+| Index prefetch | `A_Index_Window`, `B_Index_Window`, `a_remain_r`, `b_remain_r`, `valid_mask_r` | 每侧暂定 16-entry，同步按 4-entry burst 预取 index |
+| Merge match | `a_ptr_r`, `b_ptr_r`, `a_idx_r`, `b_idx_r` | 小窗口流式双指针遍历有序 index，失败丢小值，命中双侧推进 |
 | Parallel match optional | `hit_matrix_r` | 16x16 或 8x8 命中矩阵，作为高并行备选方案 |
 | Task pack | `a_offset_r`, `b_offset_r`, `a_nnz_addr_r`, `b_nnz_addr_r`, `a_data_addr_r`, `b_data_addr_r`, `c_addr_r` | 将命中 pair 压缩为任务 |
 | FIFO boundary | `task_fifo` | 可作为高低频时钟域边界 |
@@ -701,11 +725,22 @@ c_addr = C_BASE + row_id * B_COLS + col_id
 
 ```text
 A_RowPtr_SRAM + A_Index_SRAM  \
-                         -> index buffer -> merge matcher -> task FIFO -> Data_SRAM read -> FP16 MAC -> C_Acc_SRAM
+                         -> 16-entry index window -> merge matcher -> task FIFO -> Data_SRAM read -> FP16 MAC -> C_Acc_SRAM
 B_ColPtr_SRAM + B_Index_SRAM  /
 
 A_Data_SRAM(compressed nnz)   only read on task hit
 B_Data_SRAM(compressed nnz)   only read on task hit
 ```
 
-这个结构保留方案 B 的核心收益：前端用低位宽 index 先发现交集，并直接得到 A/B 各自的行内/列内 offset 与压缩数组地址；后端只读取并计算真实命中的 FP16 数据。
+这个结构保留当前架构的核心收益：前端用低位宽 index 先发现交集，并直接得到 A/B 各自的行内/列内 offset 与压缩数组地址；后端只读取并计算真实命中的 FP16 数据。
+
+当前默认 FIFO 策略：
+
+```text
+Index window / index prefetch FIFO:
+    与 matcher 同时钟，默认同步 FIFO 或寄存器 FIFO
+
+Task FIFO:
+    若 matcher、Data_SRAM、MAC 同时钟，默认同步 FIFO
+    若后续拆成不同 clock domain，再替换为异步 FIFO
+```

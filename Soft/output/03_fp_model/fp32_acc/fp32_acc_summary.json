@@ -1,0 +1,46 @@
+{
+  "mode": "fp32_acc",
+  "rule": "FP16 inputs are converted to FP32 for multiplication and accumulated in FP32.",
+  "finalize_rule": "The FP32 accumulator may be exported as FP32 or rounded once to FP16.",
+  "pairs": [
+    {
+      "a_fp16": 1.25,
+      "a_bits": "0x3d00",
+      "b_fp16": -0.5,
+      "b_bits": "0xb800",
+      "product_fp32": -0.625
+    },
+    {
+      "a_fp16": 0.875,
+      "a_bits": "0x3b00",
+      "b_fp16": 2.0,
+      "b_bits": "0x4000",
+      "product_fp32": 1.75
+    },
+    {
+      "a_fp16": -1.5,
+      "a_bits": "0xbe00",
+      "b_fp16": 0.125,
+      "b_bits": "0x3000",
+      "product_fp32": -0.1875
+    },
+    {
+      "a_fp16": 3.25,
+      "a_bits": "0x4280",
+      "b_fp16": -0.25,
+      "b_bits": "0xb400",
+      "product_fp32": -0.8125
+    },
+    {
+      "a_fp16": 0.0625,
+      "a_bits": "0x2c00",
+      "b_fp16": 0.5,
+      "b_bits": "0x3800",
+      "product_fp32": 0.03125
+    }
+  ],
+  "acc_fp32": 0.15625,
+  "acc_fp32_dtype": "float32",
+  "final_fp16": 0.15625,
+  "final_fp16_bits": "0x3100"
+}

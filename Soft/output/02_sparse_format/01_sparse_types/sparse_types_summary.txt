@@ -1,0 +1,83 @@
+02_sparse_format sparse type summary
+
+implemented_module: sparse_types.py
+purpose: Define normalized sparse matrix containers used by later converters and golden models.
+
+[SparseMatrixRaw]
+  role   : Sparse structure before CSR/CSC packing; values may be absent or generated later.
+  fields : name, rows, cols, axis, indices, values, diagnostics
+  checks :
+    - positive rows/cols
+    - record count matches axis outer size
+    - indices are strictly increasing per record
+    - indices are in range
+    - values length matches indices when present
+  example:
+    name: demo_raw_A
+    format: raw
+    axis: row
+    rows: 6
+    cols: 10
+    nnz: 11
+    density: 0.18333333333333332
+    max_line_weight: 3
+    max_line_density: 0.3
+    has_values: True
+    diagnostics: []
+
+[CSRMatrix]
+  role   : Compressed sparse row matrix, used for A in matrix multiplication.
+  fields : name, rows, cols, row_ptr, col_idx, data, diagnostics
+  checks :
+    - row_ptr length is rows + 1
+    - row_ptr starts at 0 and is monotonic
+    - row_ptr[-1] equals index/data length
+    - col_idx is in range
+    - indices are strictly increasing inside each row segment
+  example:
+    name: demo_csr_A
+    format: csr
+    rows: 6
+    cols: 10
+    nnz: 11
+    density: 0.18333333333333332
+    max_line_weight: 3
+    max_line_density: 0.3
+    ptr_len: 7
+    idx_len: 11
+    data_len: 11
+    diagnostics: []
+    row_ptr: [0, 3, 3, 5, 8, 9, 11]
+    col_idx: [0, 3, 8, 1, 4, 2, 5, 9, 7, 0, 6]
+    data_fp16: [1.25, -0.5, 0.875, 2.0, 0.75, -1.5, 3.25, 0.125, -0.25, 1.75, -2.0]
+
+[CSCMatrix]
+  role   : Compressed sparse column matrix, used for B in matrix multiplication.
+  fields : name, rows, cols, col_ptr, row_idx, data, diagnostics
+  checks :
+    - col_ptr length is cols + 1
+    - col_ptr starts at 0 and is monotonic
+    - col_ptr[-1] equals index/data length
+    - row_idx is in range
+    - indices are strictly increasing inside each column segment
+  example:
+    name: demo_csc_B
+    format: csc
+    rows: 10
+    cols: 5
+    nnz: 10
+    density: 0.2
+    max_line_weight: 3
+    max_line_density: 0.3
+    ptr_len: 6
+    idx_len: 10
+    data_len: 10
+    diagnostics: []
+    col_ptr: [0, 2, 5, 5, 8, 10]
+    row_idx: [0, 6, 1, 4, 9, 2, 5, 8, 3, 7]
+    data_fp16: [1.5, -1.0, 0.25, 2.5, -0.75, 1.125, -2.25, 0.5, 3.0, -0.375]
+
+next_artifacts:
+  - generated FP16 values for official CASE sparse positions
+  - raw-to-CSR/CSC conversion outputs
+  - random sparse case generation outputs

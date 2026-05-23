@@ -1,0 +1,25 @@
+sub3 pair 01
+
+operation: -
+expression: A(040,020)-B(040,020)
+seed_base: 4003
+max_line_density: 0.3
+
+[A]
+  storage_format   : csr
+  rows x cols      : 40 x 20
+  nnz              : 116
+  max_line_density : 0.300000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 41 / 116 / 116
+
+[B]
+  storage_format   : csr
+  rows x cols      : 40 x 20
+  nnz              : 125
+  max_line_density : 0.300000
+  ptr_name         : row_ptr
+  index_name       : col_idx
+  ptr/index/data   : 41 / 125 / 125
+

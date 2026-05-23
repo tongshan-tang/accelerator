@@ -1,0 +1,162 @@
+{
+  "step": "02_sparse_format",
+  "seed": 20260523,
+  "index_policy": "wrap_inner_dim_to_zero_dedup",
+  "matrix_count": 6,
+  "matrices": {
+    "A_0": {
+      "matrix": {
+        "name": "A_0",
+        "storage_format": "csr",
+        "rows": 256,
+        "cols": 256,
+        "nnz": 9583,
+        "density": 0.1462249755859375,
+        "max_line_weight": 76,
+        "max_line_density": 0.296875,
+        "ptr_len": 257,
+        "index_len": 9583,
+        "data_len": 9583,
+        "has_values": true,
+        "diagnostics": [
+          "index_base=invalid_or_mixed: min=0 max=256 inner_dim=256",
+          "index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=39",
+          "deduplicated_indices_after_normalization=5"
+        ]
+      },
+      "arrays": {
+        "ptr_name": "row_ptr",
+        "index_name": "col_idx",
+        "data_name": "data"
+      }
+    },
+    "A_1": {
+      "matrix": {
+        "name": "A_1",
+        "storage_format": "csr",
+        "rows": 32,
+        "cols": 316,
+        "nnz": 1451,
+        "density": 0.14349287974683544,
+        "max_line_weight": 92,
+        "max_line_density": 0.2911392405063291,
+        "ptr_len": 33,
+        "index_len": 1451,
+        "data_len": 1451,
+        "has_values": true,
+        "diagnostics": [
+          "index_base=invalid_or_mixed: min=0 max=316 inner_dim=316",
+          "index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=6"
+        ]
+      },
+      "arrays": {
+        "ptr_name": "row_ptr",
+        "index_name": "col_idx",
+        "data_name": "data"
+      }
+    },
+    "A_2": {
+      "matrix": {
+        "name": "A_2",
+        "storage_format": "csr",
+        "rows": 335,
+        "cols": 134,
+        "nnz": 6873,
+        "density": 0.15310759634662507,
+        "max_line_weight": 40,
+        "max_line_density": 0.29850746268656714,
+        "ptr_len": 336,
+        "index_len": 6873,
+        "data_len": 6873,
+        "has_values": true,
+        "diagnostics": [
+          "index_base=invalid_or_mixed: min=0 max=134 inner_dim=134",
+          "index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=44",
+          "deduplicated_indices_after_normalization=6"
+        ]
+      },
+      "arrays": {
+        "ptr_name": "row_ptr",
+        "index_name": "col_idx",
+        "data_name": "data"
+      }
+    },
+    "B_0": {
+      "matrix": {
+        "name": "B_0",
+        "storage_format": "csc",
+        "rows": 256,
+        "cols": 121,
+        "nnz": 4718,
+        "density": 0.15231146694214875,
+        "max_line_weight": 76,
+        "max_line_density": 0.296875,
+        "ptr_len": 122,
+        "index_len": 4718,
+        "data_len": 4718,
+        "has_values": true,
+        "diagnostics": [
+          "index_base=invalid_or_mixed: min=0 max=256 inner_dim=256",
+          "index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=23",
+          "deduplicated_indices_after_normalization=2"
+        ]
+      },
+      "arrays": {
+        "ptr_name": "col_ptr",
+        "index_name": "row_idx",
+        "data_name": "data"
+      }
+    },
+    "B_1": {
+      "matrix": {
+        "name": "B_1",
+        "storage_format": "csc",
+        "rows": 316,
+        "cols": 6,
+        "nnz": 259,
+        "density": 0.13660337552742616,
+        "max_line_weight": 88,
+        "max_line_density": 0.27848101265822783,
+        "ptr_len": 7,
+        "index_len": 259,
+        "data_len": 259,
+        "has_values": true,
+        "diagnostics": [
+          "index_base=ambiguous",
+          "index_policy=wrap_inner_dim_to_zero_dedup"
+        ]
+      },
+      "arrays": {
+        "ptr_name": "col_ptr",
+        "index_name": "row_idx",
+        "data_name": "data"
+      }
+    },
+    "B_2": {
+      "matrix": {
+        "name": "B_2",
+        "storage_format": "csc",
+        "rows": 134,
+        "cols": 335,
+        "nnz": 6676,
+        "density": 0.14871909111160614,
+        "max_line_weight": 40,
+        "max_line_density": 0.29850746268656714,
+        "ptr_len": 336,
+        "index_len": 6676,
+        "data_len": 6676,
+        "has_values": true,
+        "diagnostics": [
+          "index_base=invalid_or_mixed: min=0 max=134 inner_dim=134",
+          "index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=49",
+          "deduplicated_indices_after_normalization=8"
+        ]
+      },
+      "arrays": {
+        "ptr_name": "col_ptr",
+        "index_name": "row_idx",
+        "data_name": "data"
+      }
+    }
+  }
+}

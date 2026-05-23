@@ -1,0 +1,110 @@
+{
+  "A_0": {
+    "name": "A_0",
+    "axis": "row",
+    "rows": 256,
+    "cols": 256,
+    "axis_outer_size": 256,
+    "axis_inner_size": 256,
+    "nnz": 9588,
+    "density": 0.14630126953125,
+    "empty_line_count": 2,
+    "max_line_weight": 76,
+    "max_line_density": 0.296875,
+    "index_min": 0,
+    "index_max": 256,
+    "diagnostics": [
+      "index_base=invalid_or_mixed: min=0 max=256 inner_dim=256"
+    ]
+  },
+  "A_1": {
+    "name": "A_1",
+    "axis": "row",
+    "rows": 32,
+    "cols": 316,
+    "axis_outer_size": 32,
+    "axis_inner_size": 316,
+    "nnz": 1451,
+    "density": 0.14349287974683544,
+    "empty_line_count": 0,
+    "max_line_weight": 92,
+    "max_line_density": 0.2911392405063291,
+    "index_min": 0,
+    "index_max": 316,
+    "diagnostics": [
+      "index_base=invalid_or_mixed: min=0 max=316 inner_dim=316"
+    ]
+  },
+  "A_2": {
+    "name": "A_2",
+    "axis": "row",
+    "rows": 335,
+    "cols": 134,
+    "axis_outer_size": 335,
+    "axis_inner_size": 134,
+    "nnz": 6879,
+    "density": 0.15324125640454445,
+    "empty_line_count": 3,
+    "max_line_weight": 40,
+    "max_line_density": 0.29850746268656714,
+    "index_min": 0,
+    "index_max": 134,
+    "diagnostics": [
+      "index_base=invalid_or_mixed: min=0 max=134 inner_dim=134"
+    ]
+  },
+  "B_0": {
+    "name": "B_0",
+    "axis": "col",
+    "rows": 256,
+    "cols": 121,
+    "axis_outer_size": 121,
+    "axis_inner_size": 256,
+    "nnz": 4720,
+    "density": 0.15237603305785125,
+    "empty_line_count": 2,
+    "max_line_weight": 76,
+    "max_line_density": 0.296875,
+    "index_min": 0,
+    "index_max": 256,
+    "diagnostics": [
+      "index_base=invalid_or_mixed: min=0 max=256 inner_dim=256"
+    ]
+  },
+  "B_1": {
+    "name": "B_1",
+    "axis": "col",
+    "rows": 316,
+    "cols": 6,
+    "axis_outer_size": 6,
+    "axis_inner_size": 316,
+    "nnz": 259,
+    "density": 0.13660337552742616,
+    "empty_line_count": 0,
+    "max_line_weight": 88,
+    "max_line_density": 0.27848101265822783,
+    "index_min": 1,
+    "index_max": 315,
+    "diagnostics": [
+      "index_base=ambiguous"
+    ]
+  },
+  "B_2": {
+    "name": "B_2",
+    "axis": "col",
+    "rows": 134,
+    "cols": 335,
+    "axis_outer_size": 335,
+    "axis_inner_size": 134,
+    "nnz": 6684,
+    "density": 0.1488973045221653,
+    "empty_line_count": 5,
+    "max_line_weight": 40,
+    "max_line_density": 0.29850746268656714,
+    "index_min": 0,
+    "index_max": 134,
+    "diagnostics": [
+      "index_base=invalid_or_mixed: min=0 max=134 inner_dim=134"
+    ]
+  }
+}

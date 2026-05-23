@@ -1,0 +1,76 @@
+02_sparse_format official sparse array summary
+
+seed: 20260523
+index_policy: wrap_inner_dim_to_zero_dedup
+matrix_count: 6
+
+[A_0]
+  storage_format   : csr
+  rows x cols      : 256 x 256
+  nnz              : 9583
+  density          : 0.146225
+  max_line_density : 0.296875
+  ptr/index/data   : 257 / 9583 / 9583
+  diagnostics      :
+    - index_base=invalid_or_mixed: min=0 max=256 inner_dim=256
+    - index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=39
+    - deduplicated_indices_after_normalization=5
+
+[A_1]
+  storage_format   : csr
+  rows x cols      : 32 x 316
+  nnz              : 1451
+  density          : 0.143493
+  max_line_density : 0.291139
+  ptr/index/data   : 33 / 1451 / 1451
+  diagnostics      :
+    - index_base=invalid_or_mixed: min=0 max=316 inner_dim=316
+    - index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=6
+
+[A_2]
+  storage_format   : csr
+  rows x cols      : 335 x 134
+  nnz              : 6873
+  density          : 0.153108
+  max_line_density : 0.298507
+  ptr/index/data   : 336 / 6873 / 6873
+  diagnostics      :
+    - index_base=invalid_or_mixed: min=0 max=134 inner_dim=134
+    - index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=44
+    - deduplicated_indices_after_normalization=6
+
+[B_0]
+  storage_format   : csc
+  rows x cols      : 256 x 121
+  nnz              : 4718
+  density          : 0.152311
+  max_line_density : 0.296875
+  ptr/index/data   : 122 / 4718 / 4718
+  diagnostics      :
+    - index_base=invalid_or_mixed: min=0 max=256 inner_dim=256
+    - index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=23
+    - deduplicated_indices_after_normalization=2
+
+[B_1]
+  storage_format   : csc
+  rows x cols      : 316 x 6
+  nnz              : 259
+  density          : 0.136603
+  max_line_density : 0.278481
+  ptr/index/data   : 7 / 259 / 259
+  diagnostics      :
+    - index_base=ambiguous
+    - index_policy=wrap_inner_dim_to_zero_dedup
+
+[B_2]
+  storage_format   : csc
+  rows x cols      : 134 x 335
+  nnz              : 6676
+  density          : 0.148719
+  max_line_density : 0.298507
+  ptr/index/data   : 336 / 6676 / 6676
+  diagnostics      :
+    - index_base=invalid_or_mixed: min=0 max=134 inner_dim=134
+    - index_policy=wrap_inner_dim_to_zero_dedup: wrapped_inner_dim_to_zero=49
+    - deduplicated_indices_after_normalization=8
+

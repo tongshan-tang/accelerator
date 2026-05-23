@@ -1,0 +1,78 @@
+[A_0]
+  axis        : row
+  rows        : 256
+  cols        : 256
+  nnz         : 9588
+  density     : 0.146301
+  empty_line_count : 2
+  max_line_weight  : 76
+  max_line_density : 0.296875
+  index_range : 0..256
+  diagnostics :
+    - index_base=invalid_or_mixed: min=0 max=256 inner_dim=256
+
+[A_1]
+  axis        : row
+  rows        : 32
+  cols        : 316
+  nnz         : 1451
+  density     : 0.143493
+  empty_line_count : 0
+  max_line_weight  : 92
+  max_line_density : 0.291139
+  index_range : 0..316
+  diagnostics :
+    - index_base=invalid_or_mixed: min=0 max=316 inner_dim=316
+
+[A_2]
+  axis        : row
+  rows        : 335
+  cols        : 134
+  nnz         : 6879
+  density     : 0.153241
+  empty_line_count : 3
+  max_line_weight  : 40
+  max_line_density : 0.298507
+  index_range : 0..134
+  diagnostics :
+    - index_base=invalid_or_mixed: min=0 max=134 inner_dim=134
+
+[B_0]
+  axis        : col
+  rows        : 256
+  cols        : 121
+  nnz         : 4720
+  density     : 0.152376
+  empty_line_count : 2
+  max_line_weight  : 76
+  max_line_density : 0.296875
+  index_range : 0..256
+  diagnostics :
+    - index_base=invalid_or_mixed: min=0 max=256 inner_dim=256
+
+[B_1]
+  axis        : col
+  rows        : 316
+  cols        : 6
+  nnz         : 259
+  density     : 0.136603
+  empty_line_count : 0
+  max_line_weight  : 88
+  max_line_density : 0.278481
+  index_range : 1..315
+  diagnostics :
+    - index_base=ambiguous
+
+[B_2]
+  axis        : col
+  rows        : 134
+  cols        : 335
+  nnz         : 6684
+  density     : 0.148897
+  empty_line_count : 5
+  max_line_weight  : 40
+  max_line_density : 0.298507
+  index_range : 0..134
+  diagnostics :
+    - index_base=invalid_or_mixed: min=0 max=134 inner_dim=134
+
