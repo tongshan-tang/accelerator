@@ -16,8 +16,8 @@
 //2026/04/13    tangtongshan    1.0         Original
 //-------------------------------------------------------------
 module spram #(
-    parameter   DATA_WIDTH  = 32,
-    parameter   ADDR_WIDTH  = 9
+    parameter   DATA_WIDTH  = 16,
+    parameter   ADDR_WIDTH  = 8
 )(
     input                           clk,
     input                           en,
