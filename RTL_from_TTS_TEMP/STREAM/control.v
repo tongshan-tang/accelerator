@@ -9,8 +9,8 @@ module control #(
     input                               lrst_n,
     input                               start,
     input                               one_done,
-    input       [NNZ_WIDTH:0]           a_m,                // A矩阵行数
-    input       [NNZ_WIDTH:0]           b_n,                // B矩阵列数
+    input       [PTR_ADDR_WIDTH-1:0]    a_m,                // A矩阵行数
+    input       [PTR_ADDR_WIDTH-1:0]    b_n,                // B矩阵列数
     input       [ELE_ADDR_WIDTH-1:0]    a_base,             // A当前行的首元素下标
     input       [ELE_ADDR_WIDTH-1:0]    a_end,              // A下一行的首元素下标
     input       [ELE_ADDR_WIDTH-1:0]    b_base,             // B当前列的首元素下标
@@ -40,7 +40,7 @@ module control #(
     output  reg [ELE_ADDR_WIDTH-1:0]    a_index_addr,       // A索引RAM地址
     output  reg [ELE_ADDR_WIDTH-1:0]    b_index_addr,       // B索引RAM地址
     output  reg [ELE_ADDR_WIDTH-1:0]    a_nnz_addr,         // A 命中元素在压缩数组中的全局元素下标
-    output  reg [ELE_ADDR_WIDTH-1:0]    b_nnz_addr          // B 命中元素在压缩数组中的全局元素下标
+    output  reg [ELE_ADDR_WIDTH-1:0]    b_nnz_addr,         // B 命中元素在压缩数组中的全局元素下标
     //FIFO_C
     output  reg [PTR_ADDR_WIDTH-1:0]    row_id,             // A当前行号                            
     output  reg [PTR_ADDR_WIDTH-1:0]    col_id              // B当前列号                                        
@@ -86,12 +86,12 @@ always @(posedge clk_h or negedge hrst_n) begin
         fifo_b_index_wr_en <= 1'b0;
         a_index_addr       <= 0;
         b_index_addr       <= 0;
-    end else (!one_done && (a_len > 0) && (b_len > 0))begin
+    end else if (!one_done && (a_len > 0) && (b_len > 0)) begin
         fifo_a_index_wr_en <= (!fifo_a_index_full && (a_index_addr < a_end)) ? 1'b1 : 1'b0;
         fifo_b_index_wr_en <= (!fifo_b_index_full && (b_index_addr < b_end)) ? 1'b1 : 1'b0;
         a_index_addr       <= (!fifo_a_index_full) ? a_index_addr + 1'b1 : a_index_addr;
         b_index_addr       <= (!fifo_b_index_full) ? b_index_addr + 1'b1 : b_index_addr;
-    end else (step) begin
+    end else if (step) begin
         fifo_a_index_wr_en <= 1'b0;
         fifo_b_index_wr_en <= 1'b0;
         a_index_addr       <= a_base;
@@ -107,7 +107,7 @@ always @(posedge clk_h or negedge hrst_n) begin
     end else if (start) begin
         comparator_en <= 1'b0;
     end else begin
-        comparator_en <= ((a_nzz_addr < a_end) && (b_nnz_addr < b_end) && !fifo_a_index_empty && !fifo_b_index_empty && !fifo_data_full) ? 1'b1 : 1'b0;
+        comparator_en <= ((a_nnz_addr < a_end) && (b_nnz_addr < b_end) && !fifo_a_index_empty && !fifo_b_index_empty && !fifo_data_full) ? 1'b1 : 1'b0;
     end
 end
 //FIFO_INDEX读使能和RAM_DATA地址控制逻辑

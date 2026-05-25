@@ -3,7 +3,7 @@
 ## 1. 简短说明
 **项目目的**：在 Xilinx Kintex-7 平台上构建高性能的大尺寸稀疏矩阵运算（乘法、加法、减法）硬件加速系统，挑战处理带宽 >75GB/s、硬件逻辑利用率极高且全局翻转率 <60% 的极限瓶颈指标。
 
-**推进策略**：当前架构已确定为解耦读写与预匹配机制。后续工作重点转入 CSR/CSC 数据格式、`RowPtr/ColPtr` 地址生成、小窗口流式 index 预取、有序 index 双指针匹配、命中任务 FIFO、`Data_SRAM` 按需读取与 MAC 后端的闭环实现。
+**推进策略**：当前架构已确定为解耦读写与预匹配机制。软件侧 `Soft/01-06` 已完成官方 CASE 解析、稀疏数据生成、FP 数值模型、乘法/加减法 golden、case SRAM `.mem` 与 TB runlist 导出。后续工作重点转入 RTL/TB 接入：按照 `Soft/output/06_stimulus` 的数据源实现 SRAM 初始化、start/done 控制、逐 pair 覆盖执行，以及 matcher、任务 FIFO、`Data_SRAM` 按需读取与 MAC 后端闭环。
 
 ## 2. 既定核心微架构
 
@@ -38,15 +38,19 @@ PROJECT_ROOT/
 │   └── Readme.txt             # 官方数据格式说明
 ├── Project Analysis/          # 赛题分析与总项目预研计划
 │   └── MATMUL_FLOW.md         # 乘法主链路、CSR/CSC、SRAM 与 C 存储说明
-├── MODEL/                     # Python 黄金验证模型
-│   ├── 01_inspect_case/       # 官方 CASE 解析与结构检查
-│   ├── 02_sparse_format/      # CSR/CSC 转换与 index 基准处理
-│   ├── 03_fp_model/           # FP16 数值规则模型
-│   ├── 04_matmul_model/       # 乘法黄金模型
-│   ├── 05_addsub_model/       # 加法/减法黄金模型
-│   ├── 06_stimulus/           # RTL/TB 激励导出
-│   ├── 07_checker/            # RTL 输出比对
-│   └── out/                   # 按步骤编号存放 golden、stimulus、report 等生成产物
+├── Soft/                      # 软件层黄金模型、脚本、测试与产物
+│   ├── src/                   # 01-06 核心模型源码
+│   ├── scripts/               # 终端可执行脚本，命令见 Soft/scripts/README.md
+│   ├── tests/                 # pytest 回归测试
+│   ├── docs/                  # 各阶段说明、字段解释与命名规范
+│   └── output/                # report、golden、stimulus、runlist 等生成产物
+│       ├── 01_inspect_case/   # 官方 CASE 解析报告
+│       ├── 02_sparse_format/  # CSR/CSC、随机 demo/case、Ptr/Index/Data
+│       ├── 03_fp_model/       # FP16/FP32 数值规则样例
+│       ├── 04_matmul_model/   # 乘法 dense golden 与 task trace
+│       ├── 05_addsub_model/   # 加/减法 dense golden
+│       ├── 06_stimulus/       # case bundle、SRAM .mem、TB runlist
+│       └── 07_checker/        # RTL 输出比对产物，等待 RTL 输出格式确定后启用
 ├── TB/                        # 验证及测试激励解析平台 (暂未启动)
 ├── RTL/                       # 当前主线 RTL 实现
 │   ├── common/                # 通用参数、类型、接口宏
@@ -64,7 +68,51 @@ PROJECT_ROOT/
 └── DOCS/                      # 补充设计说明与会议记录
 ```
 
-## 4. 任务分工
+说明：旧 `MODEL/` 已完成迁移，当前仅残留 Python `__pycache__` 缓存文件；从项目内容角度可以删除。软件侧有效入口已统一到 `Soft/`。
+
+## 4. 软件侧当前状态
+
+`Soft/` 当前作为软件层主目录，`01-06` 已完成并通过回归测试：
+
+| 步骤 | 状态 | 内容 |
+|---|---|---|
+| `01_inspect_case` | 已完成 | 解析官方 `CASE/` Matrix/Index 文件，生成结构检查报告 |
+| `02_sparse_format` | 已完成 | 生成 CSR/CSC、FP16 value、官方数组导出，以及 `case/mul/add/sub` 随机数据 |
+| `03_fp_model` | 已完成基础模型 | 提供 `fp32_acc` 数值规则和 FP16/FP32 辅助工具 |
+| `04_matmul_model` | 已完成 | 输出乘法 dense golden 与 task trace |
+| `05_addsub_model` | 已完成 | 输出加/减法 dense golden |
+| `06_stimulus` | 已完成 | 对完整 case 输出 golden bundle、SRAM `.mem` 和 TB runlist |
+| `07_checker` | 暂缓 | 等 RTL/TB 输出格式确定后实现 RTL-vs-golden mismatch 检查 |
+
+当前已经重新生成并保留的核心测试数据包括：
+
+```text
+Soft/output/02_sparse_format/05_case_generator/case/case1 case2 case3
+Soft/output/02_sparse_format/05_case_generator/demo/mul/mul1 mul2 mul3
+Soft/output/02_sparse_format/05_case_generator/demo/addsub/add1 add2 add3 sub1 sub2 sub3
+Soft/output/04_matmul_model/
+Soft/output/05_addsub_model/
+Soft/output/06_stimulus/
+```
+
+`06_stimulus` 的执行模型为：
+
+```text
+load one pair into SRAM
+    -> pulse start
+    -> wait done
+    -> compare C output with golden
+    -> overwrite SRAM with next pair
+```
+
+最新软件回归验证：
+
+```text
+.venv/bin/pytest Soft/tests/01_inspect_case Soft/tests/02_sparse_format Soft/tests/03_fp_model Soft/tests/04_matmul_model Soft/tests/05_addsub_model Soft/tests/06_stimulus
+82 passed
+```
+
+## 5. 任务分工
 确保架构隔离、基准模型对齐、前端与后沿各司其职，坚决摒弃灰色地带。本部分的职责划分贯穿于整个项目的全生命周期。
 
 ### 成员 1：软件侧与算法主责
@@ -85,12 +133,20 @@ PROJECT_ROOT/
 - **动态仿真**：编写高覆盖率的 Testbench，针对流水线气泡、连续反压、操作数隔离失效等角落场景进行回归测试，确保功能零缺陷。
 - **系统集成**：负责后续上板调试准备，包括但不限于 FPGA 引脚约束、ILA 探针抓捕、以及在真实硬件平台上的极限吞吐实测。
 
-## 5. 当前紧急任务与行动项 (Urgent Next Steps)
-当前处于项目启动与当前架构落地的攻坚期。第一要务是彻底吃透官方赛题要求，并将乘法主链路从文档推进到可验证模型和 RTL 骨架。在此阶段，全体成员集中火力扫清以下三大紧急任务，为后续编码与验证发力扫清盲区：
+## 6. 当前紧急任务与行动项 (Urgent Next Steps)
+当前软件侧黄金模型与激励数据通道已经完成，项目重心转入 RTL/TB 接入与微架构落地。下一阶段的紧急目标是用 `Soft/output/06_stimulus` 作为统一数据源，打通 RTL 的 pair 级执行、输出采集与后续 checker 接口。
 
-- **[紧急任务 1：官方数据集解构与算法对齐]（主责：成员 1）**  
-优先处理 `CASE/` 目录，阅读 `Readme.txt`。尽快出具 Python 脚本，将稀疏存放的样本数据彻底转为直观可计算矩阵。务必解决好 FP16 底层截断问题，这是我们评判后续硬件对错的“唯一度量衡”。
-- **[紧急任务 2：乘法主链路细化]（主责：成员 2）** 
-完成乘法主链路的 RTL 级结构拆分：A 按行 CSR、B 按列 CSC 的压缩存储；`RowPtr/ColPtr` 元素下标寻址；有序 index 双指针匹配；命中 `(a_offset,b_offset)` 到 `{a_data_addr,b_data_addr,c_addr}` 的任务压缩；FIFO 反压；Data_SRAM 按需读取；C 累加存储。详见 `Project Analysis/MATMUL_FLOW.md`。
-- **[紧急任务 3：搭建验证数据通道]（主责：成员 3）** 
-马上开始搭建 Testbench 骨架结构。先针对文件 I/O 模块建立自动化读写流水，打通自动对比与自检的通路，随时迎接后续 RTL 开发阶段的代码接入。
+- **[紧急任务 1：RTL 数据接口接入]（主责：成员 2 / 成员 3）**  
+  以 `Soft/output/06_stimulus/02_export_sram/case/<case_name>/pairXX/*.mem` 为输入源，完成 A/B Ptr、Index、Data SRAM 初始化接口。每次只加载一个 pair，当前 pair 运行结束后覆盖 SRAM 并进入下一 pair。
+
+- **[紧急任务 2：乘法主链路 RTL 实现]（主责：成员 2）**  
+  完成乘法主链路 RTL 级结构拆分与编码：A 按行 CSR、B 按列 CSC；`RowPtr/ColPtr` 元素下标寻址；4-entry 小窗口流式 index merge；命中 `(a_offset,b_offset)` 到 `{a_data_addr,b_data_addr,c_addr}` 的任务压缩；同步 task FIFO；`Data_SRAM` 按需读取；FP32 accumulation 或等价 RTL 数值路径；C 写回。详见 `Project Analysis/MATMUL_FLOW.md`。
+
+- **[紧急任务 3：加/减法 RTL 与调度统一]（主责：成员 2）**  
+  加/减法输入 A/B 均按 row CSR 处理，B 不使用 CSC。与乘法共用 pair 级调度、SRAM 加载、start/done 和 C 输出通道；运算模式由 `input_config.json` 中的 `operation_code` 区分。
+
+- **[紧急任务 4：Testbench 自动化]（主责：成员 3）**  
+  读取 `Soft/output/06_stimulus/03_tb_runlist/case/<case_name>/tb_runlist.json`，自动遍历 pair，加载 `.mem`、驱动 start、等待 done、采集 C 输出。RTL 输出格式稳定后，再接入 `07_checker` 做自动 mismatch 报告。
+
+- **[紧急任务 5：软件侧维护]（主责：成员 1）**  
+  软件侧保持 `Soft/01-06` 稳定，不再扩大功能面。若 RTL 输出格式、FP 累加模式或 SRAM word 宽发生变化，同步更新 `06_stimulus` 和后续 `07_checker`。

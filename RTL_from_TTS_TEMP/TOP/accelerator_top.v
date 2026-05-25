@@ -20,16 +20,16 @@ parameter FIFO_DEPTH        = 16;   //FIFO深度
 wire                        ram_a_ptr_en;
 wire                        ram_a_ptr_we;
 wire [PTR_ADDR_WIDTH-1:0]   row_id;
-wire [DATA_WIDTH-1:0]       ram_a_ptr_din;
-wire [DATA_WIDTH-1:0]       a_base;
-wire [DATA_WIDTH-1:0]       a_end;
+wire [ELE_ADDR_WIDTH-1:0]   ram_a_ptr_din;
+wire [ELE_ADDR_WIDTH-1:0]   a_base;
+wire [ELE_ADDR_WIDTH-1:0]   a_end;
 //RAM_B_PTR
 wire                        ram_b_ptr_en;
 wire                        ram_b_ptr_we;
 wire [PTR_ADDR_WIDTH-1:0]   col_id;
-wire [DATA_WIDTH-1:0]       ram_b_ptr_din;
-wire [DATA_WIDTH-1:0]       b_base;
-wire [DATA_WIDTH-1:0]       b_end;
+wire [ELE_ADDR_WIDTH-1:0]   ram_b_ptr_din;
+wire [ELE_ADDR_WIDTH-1:0]   b_base;
+wire [ELE_ADDR_WIDTH-1:0]   b_end;
 //RAM_A_INDEX
 wire                        ram_a_index_en;
 wire                        ram_a_index_we;
@@ -68,6 +68,13 @@ wire [DATA_WIDTH-1:0]       fifo_b_index_din;
 wire [DATA_WIDTH-1:0]       fifo_b_index_dout;
 wire                        fifo_b_index_full;
 wire                        fifo_b_index_empty;
+//FIFO_DATA
+wire                        fifo_data_wr_en;
+wire                        fifo_data_rd_en;
+wire [2*DATA_WIDTH-1:0]     fifo_data_din;
+wire [2*DATA_WIDTH-1:0]     fifo_data_dout;
+wire                        fifo_data_full;
+wire                        fifo_data_empty;
 //COMPARATOR
 wire                        comparator_enable;
 wire [DATA_WIDTH-1:0]       comparator_a_index;
@@ -80,7 +87,7 @@ wire                        one_done;   //单次运算完成信号
 /*---------- INSTANCE ----------*/
 //RAM 暂时只存储1组矩阵数据
 dpram #(
-    .DATA_WIDTH(DATA_WIDTH),
+    .DATA_WIDTH(ELE_ADDR_WIDTH),
     .ADDR_WIDTH(PTR_ADDR_WIDTH)
 ) ram_a_ptr (
     .clk        (clk_h              ),
@@ -92,12 +99,12 @@ dpram #(
     .en_b       (ram_a_ptr_en       ),
     .we_b       (1'b0               ),
     .addr_b     (row_id + 1'b1      ),
-    .din_b      ({DATA_WIDTH{1'b0}} ),
+    .din_b      ({ELE_ADDR_WIDTH{1'b0}} ),
     .dout_b     (a_end              )
 );
 
 dpram #(
-    .DATA_WIDTH (DATA_WIDTH),
+    .DATA_WIDTH (ELE_ADDR_WIDTH),
     .ADDR_WIDTH (PTR_ADDR_WIDTH)
 ) ram_b_ptr (
     .clk        (clk_h              ),
@@ -109,7 +116,7 @@ dpram #(
     .en_b       (ram_b_ptr_en       ),
     .we_b       (1'b0               ),
     .addr_b     (col_id + 1'b1      ),
-    .din_b      ({DATA_WIDTH{1'b0}} ),
+    .din_b      ({ELE_ADDR_WIDTH{1'b0}} ),
     .dout_b     (b_end              )
 );
 
@@ -118,11 +125,11 @@ spram #(
     .ADDR_WIDTH (ELE_ADDR_WIDTH)
 ) ram_a_index (
     .clk        (clk_h              ),
-    .en_a       (ram_a_index_en     ),
-    .we_a       (ram_a_index_we     ),
-    .addr_a     (a_index_addr       ), //矩阵A索引地址，对齐FI_INDEX
-    .din_a      (ram_a_index_din    ),
-    .dout_a     (ram_a_index_dout   )
+    .en         (ram_a_index_en     ),
+    .we         (ram_a_index_we     ),
+    .addr       (a_index_addr       ), //矩阵A索引地址，对齐FI_INDEX
+    .din        (ram_a_index_din    ),
+    .dout       (ram_a_index_dout   )
 );
 
 spram #(
@@ -130,11 +137,11 @@ spram #(
     .ADDR_WIDTH (ELE_ADDR_WIDTH)
 ) ram_b_index (
     .clk        (clk_h              ), 
-    .en_a       (ram_b_index_en     ), 
-    .we_a       (ram_b_index_we     ), 
-    .addr_a     (b_index_addr       ), //矩阵B索引地址，对齐FI_INDEX
-    .din_a      (ram_b_index_din    ),
-    .dout_a     (ram_b_index_dout   )
+    .en         (ram_b_index_en     ), 
+    .we         (ram_b_index_we     ), 
+    .addr       (b_index_addr       ), //矩阵B索引地址，对齐FI_INDEX
+    .din        (ram_b_index_din    ),
+    .dout       (ram_b_index_dout   )
 );
 
 spram #(
@@ -142,11 +149,11 @@ spram #(
     .ADDR_WIDTH (ELE_ADDR_WIDTH)
 ) ram_a_data (
     .clk        (clk_h              ),
-    .en_a       (ram_a_data_en      ),
-    .we_a       (ram_a_data_we      ),
-    .addr_a     (a_nnz_addr         ), //矩阵A数据地址，对齐FO_INDEX
-    .din_a      (ram_a_data_din     ),
-    .dout_a     (ram_a_data_dout    )
+    .en         (ram_a_data_en      ),
+    .we         (ram_a_data_we      ),
+    .addr       (a_nnz_addr         ), //矩阵A数据地址，对齐FO_INDEX
+    .din        (ram_a_data_din     ),
+    .dout       (ram_a_data_dout    )
 );
 
 spram #(
@@ -154,38 +161,56 @@ spram #(
     .ADDR_WIDTH (ELE_ADDR_WIDTH)
 ) ram_b_data (
     .clk        (clk_h              ),
-    .en_a       (ram_b_data_en      ),
-    .we_a       (ram_b_data_we      ),
-    .addr_a     (b_nnz_addr         ), //矩阵B数据地址，对齐FO_INDEX
-    .din_a      (ram_b_data_din     ),
-    .dout_a     (ram_b_data_dout    )
+    .en         (ram_b_data_en      ),
+    .we         (ram_b_data_we      ),
+    .addr       (b_nnz_addr         ), //矩阵B数据地址，对齐FO_INDEX
+    .din        (ram_b_data_din     ),
+    .dout       (ram_b_data_dout    )
 );
 //FIFO
 sync_fifo #(
-    DATA_WIDTH  (DATA_WIDTH),
-    DATA_DEPTH  (FIFO_DEPTH)
+    .DATA_WIDTH (DATA_WIDTH),
+    .DATA_DEPTH (FIFO_DEPTH)
 ) fifo_a_index(
-    clk         (clk_h              ),  //高速时钟
-    rst_n       (hrst_n             ),  //高速复位
-    wr_en       (fifo_a_index_wr_en ),  
-    rd_en       (fifo_a_index_rd_en ),
-    din         (ram_a_index_dout   ),
-    dout        (comparator_a_index ),
-    full        (fifo_a_index_full  ),
-    empty       (fifo_a_index_empty )
+    .clk        (clk_h              ),  //高速时钟
+    .rst_n      (hrst_n             ),  //高速复位
+    .wr_en      (fifo_a_index_wr_en ),  
+    .rd_en      (fifo_a_index_rd_en ),
+    .din        (ram_a_index_dout   ),
+    .dout       (comparator_a_index ),
+    .full       (fifo_a_index_full  ),
+    .empty      (fifo_a_index_empty )
 );
 sync_fifo #(
-    DATA_WIDTH  (DATA_WIDTH),
-    DATA_DEPTH  (FIFO_DEPTH)
+    .DATA_WIDTH (DATA_WIDTH),
+    .DATA_DEPTH (FIFO_DEPTH)
 ) fifo_b_index(
-    clk         (clk_h              ),  //高速时钟
-    rst_n       (hrst_n             ),  //高速复位
-    wr_en       (fifo_b_index_wr_en ),
-    rd_en       (fifo_b_index_rd_en ),
-    din         (ram_b_index_dout   ),
-    dout        (comparator_b_index ),
-    full        (fifo_b_index_full  ),
-    empty       (fifo_b_index_empty )
+    .clk        (clk_h              ),  //高速时钟
+    .rst_n      (hrst_n             ),  //高速复位
+    .wr_en      (fifo_b_index_wr_en ),
+    .rd_en      (fifo_b_index_rd_en ),
+    .din        (ram_b_index_dout   ),
+    .dout       (comparator_b_index ),
+    .full       (fifo_b_index_full  ),
+    .empty      (fifo_b_index_empty )
+);
+
+assign fifo_data_din = {ram_a_data_dout, ram_b_data_dout};
+
+fifo_data #(
+    .DATA_WIDTH (2*DATA_WIDTH),
+    .DATA_DEPTH (FIFO_DEPTH)
+) fifo_data_inst (
+    .wr_clk     (clk_h              ),  //高速写入命中数据对
+    .wr_rst_n   (hrst_n             ),
+    .rd_clk     (clk_l              ),  //低速侧供PE读取
+    .rd_rst_n   (lrst_n             ),
+    .wr_en      (fifo_data_wr_en    ),
+    .rd_en      (fifo_data_rd_en    ),
+    .din        (fifo_data_din      ),
+    .dout       (fifo_data_dout     ),
+    .full       (fifo_data_full     ),
+    .empty      (fifo_data_empty    )
 );
 //COMPARATOR
 comparator #(
@@ -242,6 +267,6 @@ control #(
     .b_nnz_addr         (b_nnz_addr         ), // B 命中元素在压缩数组中的全局元素下标
     .row_id             (row_id             ), // A当前行号                            
     .col_id             (col_id             )  // B当前列号
-)
+);
 
 endmodule
